@@ -7,11 +7,14 @@ class EnemyManager:
         self.enemies = []
 
     def update(self):
-        self.add_enemy
+        self.add_enemy()
+        enemies_to_remove = []
         for enemy in self.enemies:
             enemy.update()
             if enemy.rect.y >= SCREEN_HEIGHT:
-                self.enemies.remove(enemy)
+                enemies_to_remove.append(enemy)
+        for enemy in enemies_to_remove:
+            self.enemies.remove(enemy)
 
     def draw(self, screen):
         for enemy in self.enemies:
