@@ -1,4 +1,5 @@
 import pygame
+from game.components.bullets.bullet_manager import BulletManager
 from game.components.enemies.enemy_manager import EnemyManager
 
 from game.utils.constants import (
@@ -26,6 +27,7 @@ class Game:
         self.y_pos_bg = 0
         self.player = Spaceship()
         self.enemy_manager = EnemyManager()
+        self.bullet_manager = BulletManager()
 
     def run(self):
         # Game loop: events - update - draw
@@ -45,7 +47,8 @@ class Game:
     def update(self):
         user_input = pygame.key.get_pressed()
         self.player.update(user_input)
-        self.enemy_manager.update()
+        self.enemy_manager.update(self)
+        self.bullet_manager.update(self)
 
     def draw(self):
         self.clock.tick(FPS)
@@ -53,6 +56,7 @@ class Game:
         self.draw_background()
         self.player.draw(self.screen)
         self.enemy_manager.draw(self.screen)
+        self.bullet_manager.draw(self.screen)
         pygame.display.update()
         # pygame.display.flip()
 
