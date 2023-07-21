@@ -70,7 +70,12 @@ class Enemy(Sprite):
 
     def shoot(self, bullet_manager):
         current_time = pygame.time.get_ticks()
-        if self.shooting_time <= current_time:
-            bullet = Bullet(self)
-            bullet_manager.add_bullet(bullet)
-            self.shooting_time += random.randint(30, 50)
+        if current_time >= self.shooting_time:
+            bullet = Bullet(self)  # Creamos la bala asociada al enemigo
+            bullet.rect.centerx = self.rect.centerx
+            bullet.rect.bottom = (
+                self.rect.top
+            )  # La bala sale desde la parte superior del enemigo
+            bullet.speed_y = 10  # Ajustamos la velocidad en el eje Y para que la bala dispare hacia abajo
+            bullet_manager.add_bullet(bullet)  # Agregamos la bala al BulletManager
+            self.shooting_time = current_time + random.randint(500, 1000)
