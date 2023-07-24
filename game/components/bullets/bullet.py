@@ -1,6 +1,7 @@
 import pygame
 from pygame.sprite import Sprite
-from game.utils.constants import BULLET
+from game.utils.constants import BULLET, BULLET_ENEMY
+from game.components.power_ups.power_up import PowerUp
 
 
 class Bullet(Sprite):
@@ -9,7 +10,7 @@ class Bullet(Sprite):
     BULLET_PLAYER = pygame.transform.scale(BULLET, (BULLET_WIDTH, BULLET_HEIGHT))
     BULLET_ENEMY = pygame.transform.scale(BULLET, (BULLET_WIDTH, BULLET_HEIGHT))
     BULLETS = {"player": BULLET_PLAYER, "enemy": BULLET_ENEMY}
-    SPEED = 20
+    SPEED = 40
 
     def __init__(self, spaceship):
         self.image = self.BULLETS[spaceship.type]

@@ -1,6 +1,7 @@
 import random
 from game.components.enemies.enemy import Enemy
 from game.utils.constants import SCREEN_HEIGHT
+from game.components.bullets.bullet import Bullet
 
 
 class EnemyManager:
@@ -9,14 +10,10 @@ class EnemyManager:
 
     def update(self, game):
         self.add_enemy()
-        enemies_to_remove = []
         for enemy in self.enemies:
             enemy.update(game)
             if enemy.rect.y >= SCREEN_HEIGHT:
                 self.enemies.remove(enemy)
-
-        for enemy in enemies_to_remove:
-            self.enemies.remove(enemy)
 
     def draw(self, screen):
         for enemy in self.enemies:
@@ -30,7 +27,8 @@ class EnemyManager:
             x_speed = 5
             y_speed = 2
             move_x_for = [50, 120]
-            enemy = Enemy(enemy_type, x_speed, move_x_for)
+            enemy = Enemy(enemy_type, x_speed, y_speed, move_x_for)
+
         if len(self.enemies) < 1:
             self.enemies.append(enemy)
 
